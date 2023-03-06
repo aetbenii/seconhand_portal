@@ -13,7 +13,14 @@ class Artikel{
     protected static $table = 'artikel';
 
     public static function findeAlle(){
-        $sql = 'SELECT * FROM artikel';
+        $sql = 'SELECT * FROM artikel ORDER BY einstelldatum DESC';
+        $abfrage = DB::getDB()->query($sql);
+        $abfrage->setFetchMode(PDO::FETCH_CLASS, 'Artikel');
+        return $abfrage->fetchAll();
+    }
+
+    public static function zeigeNachZustand(){
+        $sql = 'SELECT * FROM artikel ORDER BY Zustand_Zustandid ASC';
         $abfrage = DB::getDB()->query($sql);
         $abfrage->setFetchMode(PDO::FETCH_CLASS, 'Artikel');
         return $abfrage->fetchAll();
